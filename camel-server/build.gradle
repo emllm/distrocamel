@@ -11,7 +11,7 @@ repositories {
 dependencies {
     // Apache Camel
     implementation 'org.apache.camel.springboot:camel-spring-boot-starter:3.20.3'
-    implementation 'org.apache.camel:camel-mail-starter:3.20.3'
+    implementation 'org.apache.camel.springboot:camel-mail-starter:3.20.3'
     implementation 'org.apache.camel:camel-http:3.20.3'
     implementation 'org.apache.camel:camel-jackson:3.20.3'
     
