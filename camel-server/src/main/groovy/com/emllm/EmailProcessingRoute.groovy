@@ -30,7 +30,7 @@ class EmailProcessingRoute extends RouteBuilder {
         def smtpPort = System.getenv('SMTP_PORT') ?: '1025'
         def ollamaUrl = System.getenv('OLLAMA_URL') ?: 'http://localhost:11434'
         
-        def ollamaBaseUrl = System.getenv('OLLAMA_BASE_URL') ?: 'http://localhost:11434'
+        def ollamaBaseUrl = System.getenv('OLLAMA_BASE_URL') ?: 'http://localhost:11433'
         
         // Create and configure the email processor
         def emailProcessor = new EmailProcessor(
