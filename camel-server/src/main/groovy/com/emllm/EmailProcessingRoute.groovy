@@ -28,14 +28,23 @@ class EmailProcessingRoute extends RouteBuilder {
         def imapPort = System.getenv('IMAP_PORT') ?: '1143'
         def smtpHost = System.getenv('SMTP_HOST') ?: 'localhost'
         def smtpPort = System.getenv('SMTP_PORT') ?: '1025'
-        def ollamaUrl = System.getenv('OLLAMA_BASE_URL') ?: 'http://localhost:11434'
+        def ollamaUrl = System.getenv('OLLAMA_URL') ?: 'http://localhost:11434'
+        
+        def ollamaBaseUrl = System.getenv('OLLAMA_BASE_URL') ?: 'http://localhost:11434'
+        
+        // Create and configure the email processor
+        def emailProcessor = new EmailProcessor(
+            ollamaUrl: ollamaBaseUrl,
+            smtpHost: smtpHost,
+            smtpPort: smtpPort
+        )
 
         // Configure the IMAP endpoint
         def imapEndpoint = "imap://${imapUser}@${imapHost}:${imapPort}?password=${imapPass}&delete=false&unseen=true&consumer.delay=10000"
         
         from(imapEndpoint)
             .routeId("email-processing-route")
-            .process(new EmailProcessor(ollamaUrl: ollamaUrl, smtpHost: smtpHost, smtpPort: smtpPort))
+            .process(emailProcessor)
             .log("Processed email")
             .end()
     }
