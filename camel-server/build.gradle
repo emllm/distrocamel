@@ -28,6 +28,22 @@ dependencies {
     testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
 }
 
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+compileGroovy {
+    groovyOptions.optimizationOptions.indy = true
+    groovyOptions.javaAnnotationProcessing = true
+}
+
 application {
     mainClass = 'com.emllm.Application'
 }

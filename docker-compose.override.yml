@@ -2,9 +2,10 @@ version: '3.8'
 
 services:
   camel-server:
-    volumes:
-      - ./camel-server:/app
-      - ~/.gradle:/root/.gradle
+    # Commenting out volumes during build to prevent source file overrides
+    # volumes:
+    #   - ./camel-server:/app
+    #   - ~/.gradle:/root/.gradle
     environment:
       - SPRING_PROFILES_ACTIVE=dev
     ports:
