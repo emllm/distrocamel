@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Apache Camel
+    implementation 'org.apache.camel.springboot:camel-spring-boot-starter:3.20.3'
+    implementation 'org.apache.camel:camel-mail-starter:3.20.3'
+    implementation 'org.apache.camel:camel-http:3.20.3'
+    implementation 'org.apache.camel:camel-jackson:3.20.3'
+    
+    // Groovy
+    implementation 'org.codehaus.groovy:groovy:3.0.13'
+    
+    // Logging
+    implementation 'org.slf4j:slf4j-simple:2.0.6'
+    
+    // Utils
+    implementation 'org.apache.commons:commons-email:1.5'
+    
+    // Testing
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+}
+
+application {
+    mainClass = 'com.emllm.Application'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.emllm.Application'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  camel-server:
+    volumes:
+      - ./camel-server:/app
+      - ~/.gradle:/root/.gradle
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    ports:
+      - "8087:8080"
+
+  web-ui:
+    volumes:
+      - ./web-ui:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "3003:3000"
+    command: sh -c "npm install && npm start"
+
+  client-agent:
+    volumes:
+      - ./client-agent:/app
+    environment:
+      - DEPLOYMENT_DIR=./deployments
+    ports:
+      - "8081:8081"
+
+  bot-generator:
+    volumes:
+      - ./bot-generator:/app
+    environment:
+      - JAVA_OPTS=-Dgroovy.grape.report.downloads=true
+
+volumes:
+  ollama_data:
+  gradle_cache:
+  node_modules:
